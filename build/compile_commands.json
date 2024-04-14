@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/develop/search_engine/build/src",
+  "command": "C:\\mingw64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\search_engine.dir\\main.cpp.obj -c C:\\develop\\search_engine\\src\\main.cpp",
+  "file": "C:/develop/search_engine/src/main.cpp",
+  "output": "src/CMakeFiles/search_engine.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/develop/search_engine/build/src",
+  "command": "C:\\mingw64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\search_engine.dir\\converterjson.cpp.obj -c C:\\develop\\search_engine\\src\\converterjson.cpp",
+  "file": "C:/develop/search_engine/src/converterjson.cpp",
+  "output": "src/CMakeFiles/search_engine.dir/converterjson.cpp.obj"
+},
+{
+  "directory": "C:/develop/search_engine/build/src",
+  "command": "C:\\mingw64\\bin\\g++.exe   -g -std=gnu++11 -o CMakeFiles\\search_engine.dir\\JSONser.pb.cc.obj -c C:\\develop\\search_engine\\src\\JSONser.pb.cc",
+  "file": "C:/develop/search_engine/src/JSONser.pb.cc",
+  "output": "src/CMakeFiles/search_engine.dir/JSONser.pb.cc.obj"
+}
+]
