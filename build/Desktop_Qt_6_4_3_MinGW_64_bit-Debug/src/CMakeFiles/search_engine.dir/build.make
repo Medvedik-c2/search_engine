@@ -128,12 +128,28 @@ src/CMakeFiles/search_engine.dir/invertedIndexTest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/search_engine.dir/invertedIndexTest.cpp.s"
 	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && C:\Qt\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\develop\search_engine\src\invertedIndexTest.cpp -o CMakeFiles\search_engine.dir\invertedIndexTest.cpp.s
 
+src/CMakeFiles/search_engine.dir/searchserver.cpp.obj: src/CMakeFiles/search_engine.dir/flags.make
+src/CMakeFiles/search_engine.dir/searchserver.cpp.obj: src/CMakeFiles/search_engine.dir/includes_CXX.rsp
+src/CMakeFiles/search_engine.dir/searchserver.cpp.obj: C:/develop/search_engine/src/searchserver.cpp
+src/CMakeFiles/search_engine.dir/searchserver.cpp.obj: src/CMakeFiles/search_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/search_engine.dir/searchserver.cpp.obj"
+	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && C:\Qt\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/search_engine.dir/searchserver.cpp.obj -MF CMakeFiles\search_engine.dir\searchserver.cpp.obj.d -o CMakeFiles\search_engine.dir\searchserver.cpp.obj -c C:\develop\search_engine\src\searchserver.cpp
+
+src/CMakeFiles/search_engine.dir/searchserver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/search_engine.dir/searchserver.cpp.i"
+	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && C:\Qt\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\develop\search_engine\src\searchserver.cpp > CMakeFiles\search_engine.dir\searchserver.cpp.i
+
+src/CMakeFiles/search_engine.dir/searchserver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/search_engine.dir/searchserver.cpp.s"
+	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && C:\Qt\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\develop\search_engine\src\searchserver.cpp -o CMakeFiles\search_engine.dir\searchserver.cpp.s
+
 # Object files for target search_engine
 search_engine_OBJECTS = \
 "CMakeFiles/search_engine.dir/main.cpp.obj" \
 "CMakeFiles/search_engine.dir/converterjson.cpp.obj" \
 "CMakeFiles/search_engine.dir/invertedindex.cpp.obj" \
-"CMakeFiles/search_engine.dir/invertedIndexTest.cpp.obj"
+"CMakeFiles/search_engine.dir/invertedIndexTest.cpp.obj" \
+"CMakeFiles/search_engine.dir/searchserver.cpp.obj"
 
 # External object files for target search_engine
 search_engine_EXTERNAL_OBJECTS =
@@ -142,13 +158,14 @@ src/search_engine.exe: src/CMakeFiles/search_engine.dir/main.cpp.obj
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/converterjson.cpp.obj
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/invertedindex.cpp.obj
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/invertedIndexTest.cpp.obj
+src/search_engine.exe: src/CMakeFiles/search_engine.dir/searchserver.cpp.obj
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/build.make
 src/search_engine.exe: lib/libgtest_main.a
 src/search_engine.exe: lib/libgtest.a
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/linkLibs.rsp
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/objects1.rsp
 src/search_engine.exe: src/CMakeFiles/search_engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable search_engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable search_engine.exe"
 	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\search_engine.dir\link.txt --verbose=$(VERBOSE)
 	cd /d C:\develop\search_engine\build\Desktop_Qt_6_4_3_MinGW_64_bit-Debug\src && "C:\Program Files\CMake\bin\cmake.exe" -D TEST_TARGET=search_engine -D TEST_EXECUTABLE=C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/src/search_engine.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/src -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=search_engine_TESTS -D CTEST_FILE=C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/src/search_engine[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/CMake/share/cmake-3.28/Modules/GoogleTestAddTests.cmake"
 

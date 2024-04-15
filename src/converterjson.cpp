@@ -4,11 +4,10 @@
 #include <iostream>
 #include <stdexcept>
 
+std::vector<std::size_t> ConverterJSON::Doc () {return doc;}
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
-
     std::vector<std::string> list;
-
     try {
         nlohmann::json config;
         std::ifstream inconfig;
@@ -17,12 +16,14 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
             throw std::runtime_error("Failed to open config.json");
         }
         inconfig >> config;
+        size_t n = 0;
         for (auto& pathfile : config["files"]) {
             std::ifstream infile(pathfile);
             if (!infile.is_open()) {
                 std::cerr << "[FAIL] " << pathfile << " is missing" << std::endl;
                 continue;
             }
+            doc.push_back(n++);
             std::string line;
             while (std::getline(infile, line)) {
                 list.push_back(line);
@@ -84,18 +85,21 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
     nlohmann::json jsonAnswer;
     jsonAnswer["answers"] = nlohmann::json::array();
 
-    int i = 0;
+    int i = 0; //нумерация должна приходить извне, привязанная к запросам
+    //псамый релевантный отметить
+    //добавить тесты и разобраться что не работает
     for (auto& answer : answers) {
         nlohmann::json request;
-        std::string requestKey = "request" + std::to_string(i + 1);
+        std::string requestKey = "request_00" + std::to_string(i + 1);
+        request[requestKey] = nlohmann::json::array();
         if (answer.empty()) request["result"] = "false";
         else {
             request["result"] = "true";
             nlohmann::json relevance;
             for(const auto& pair : answer) {
-                relevance.push_back({{"docid", pair.first}, {"rank", pair.second}});
+                relevance.push_back({{"docId", pair.first}, {"rank", pair.second}});
             }
-            request["relevance"] = relevance;
+            request[requestKey].push_back(relevance);
         }
         jsonAnswer["answers"].push_back(request);
         i++;

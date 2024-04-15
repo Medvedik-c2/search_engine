@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/develop/search_engine/src/invertedIndexTest.cpp" "src/CMakeFiles/search_engine.dir/invertedIndexTest.cpp.obj" "gcc" "src/CMakeFiles/search_engine.dir/invertedIndexTest.cpp.obj.d"
   "C:/develop/search_engine/src/invertedindex.cpp" "src/CMakeFiles/search_engine.dir/invertedindex.cpp.obj" "gcc" "src/CMakeFiles/search_engine.dir/invertedindex.cpp.obj.d"
   "C:/develop/search_engine/src/main.cpp" "src/CMakeFiles/search_engine.dir/main.cpp.obj" "gcc" "src/CMakeFiles/search_engine.dir/main.cpp.obj.d"
+  "C:/develop/search_engine/src/searchserver.cpp" "src/CMakeFiles/search_engine.dir/searchserver.cpp.obj" "gcc" "src/CMakeFiles/search_engine.dir/searchserver.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

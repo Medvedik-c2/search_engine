@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/search_engine.dir/invertedindex.cpp.obj.d"
   "CMakeFiles/search_engine.dir/main.cpp.obj"
   "CMakeFiles/search_engine.dir/main.cpp.obj.d"
+  "CMakeFiles/search_engine.dir/searchserver.cpp.obj"
+  "CMakeFiles/search_engine.dir/searchserver.cpp.obj.d"
   "libsearch_engine.dll.a"
   "search_engine.exe"
   "search_engine.exe.manifest"

@@ -6,6 +6,7 @@
 
 
 
+
 void InvertedIndex::processFreqDictionary(std::string &doc, size_t& id, std::mutex& mtx)
 {
     std::istringstream iss(doc);

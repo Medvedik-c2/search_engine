@@ -5,6 +5,8 @@
 #include <string>
 
 class ConverterJSON {
+
+    std::vector<std::size_t> doc;
 public:
     ConverterJSON() = default;
 
@@ -18,6 +20,7 @@ public:
 
     std::vector<std::vector<std::pair<int, float>>> processAnswers();
 
+    std::vector<std::size_t> Doc();
 };
 
 

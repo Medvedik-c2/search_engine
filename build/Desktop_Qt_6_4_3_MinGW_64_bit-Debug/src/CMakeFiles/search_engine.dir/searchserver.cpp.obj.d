@@ -1,5 +1,6 @@
-src/CMakeFiles/search_engine.dir/main.cpp.obj: \
- C:\develop\search_engine\src\main.cpp \
+src/CMakeFiles/search_engine.dir/searchserver.cpp.obj: \
+ C:\develop\search_engine\src\searchserver.cpp \
+ C:/develop/search_engine/include/searchserver.h \
  C:/develop/search_engine/include/invertedindex.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/vector \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algobase.h \
@@ -139,26 +140,8 @@ src/CMakeFiles/search_engine.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_mutex.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_lock.h \
  C:/develop/search_engine/include/converterjson.h \
- C:/develop/search_engine/include/searchserver.h \
- C:/develop/search_engine/include/invertedindex.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstddef \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tempbuf.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_raw_storage_iter.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/align.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bit \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_ptr.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr_base.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/allocated_ptr.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/refwrap.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/concurrence.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr_atomic.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_base.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_lockfree_defines.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward/auto_ptr.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
+ C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
+ C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ios_base.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_classes.h \
@@ -174,62 +157,11 @@ src/CMakeFiles/search_engine.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/ctype_inline.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets.tcc \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_ios.tcc \
+ C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream.tcc \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-assertion-result.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-message.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-port.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/string.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/sec_api/string_s.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/locale \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/messages_members.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/codecvt.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.tcc \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_conv.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/sys/stat.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/io.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/custom/gtest-port.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-port-arch.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/direct.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/condition_variable \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-death-test.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-death-test-internal.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/atomic \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-printers.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/functional \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_function.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/float.h \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/float.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tree.h \
  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_map.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/set \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_set.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multiset.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-filepath.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-string.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-type-util.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cxxabi.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/cxxabi_tweaks.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/custom/gtest-printers.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-param-test.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iterator \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stream_iterator.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h \
- C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cassert \
- C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/assert.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-test-part.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest-typed-test.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest_pred_impl.h \
- C:/develop/search_engine/build/Desktop_Qt_6_4_3_MinGW_64_bit-Debug/_deps/googletest-src/googletest/include/gtest/gtest_prod.h
+ C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h

@@ -18,6 +18,7 @@ struct Entry
 
 class InvertedIndex
 {
+
     std::vector<std::string> docs;
     std::unordered_map<std::string, std::vector<Entry>> freqDictionary;
 
@@ -29,6 +30,7 @@ public:
     void setFreqDictionary ();
     void showFreqDictionary ();
     std::vector<Entry> GetWordCount(const std::string& request);
+
 
 };
 

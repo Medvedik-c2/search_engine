@@ -5,6 +5,7 @@ add_executable(search_engine
     converterjson.cpp
     invertedindex.cpp
     invertedIndexTest.cpp
+    searchserver.cpp
 )
 
 enable_testing()
