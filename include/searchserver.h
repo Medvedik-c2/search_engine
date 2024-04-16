@@ -14,12 +14,15 @@ struct RelativeIndex{
 class SearchServer
 {
     std::vector<std::vector<std::pair<int,float>>> answers;
+    std::vector<int> sortedQueryNumbers;
+    int max = 0;
 public:
     SearchServer(InvertedIndex& idx);
-    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queriesInput);
+    std::vector<std::pair<int, std::vector<RelativeIndex>>> search(const std::vector<std::string>& queriesInput);
     std::vector<std::string> tokenizeQuery(std::string request);
     std::vector<std::vector<std::pair<int, float> > > getAnswers() const;
 
+    void sortVector(std::vector<std::pair<int, std::vector<RelativeIndex> > > &resultRelative);
 private:
     InvertedIndex _index;
 

@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 std::vector<std::size_t> ConverterJSON::Doc () {return doc;}
+
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
     std::vector<std::string> list;
