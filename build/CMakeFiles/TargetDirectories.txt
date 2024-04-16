@@ -1,5 +1,0 @@
-C:/develop/search_engine/build/CMakeFiles/edit_cache.dir
-C:/develop/search_engine/build/CMakeFiles/rebuild_cache.dir
-C:/develop/search_engine/build/src/CMakeFiles/search_engine.dir
-C:/develop/search_engine/build/src/CMakeFiles/edit_cache.dir
-C:/develop/search_engine/build/src/CMakeFiles/rebuild_cache.dir
