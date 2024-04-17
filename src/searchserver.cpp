@@ -37,10 +37,13 @@ std::vector<std::pair<int, std::vector<RelativeIndex>>> SearchServer::search(con
             for (auto& it : _index.GetWordCount(token)){
                 count += it.count;
                 relativeIndex.push_back({it.docId,(float)it.count});
-                answer.push_back(std::pair<int, float>(static_cast<int>(it.docId),(float)it.count));
+                int id = static_cast<int>(it.docId);
+                float c = (float)it.count;
+                answer.push_back(std::pair<int, float>(id, c));
             }
-            resultRelative.push_back(std::make_pair(queryNumber++, relativeIndex));
-            answers.push_back(answer);
+            resultRelative.push_back(std::make_pair(queryNumber, relativeIndex));
+            queryNumber++;
+            //answers.push_back(answer);
             for (const auto& pair : countRequest) {
                 if (pair.second == token) unique = false;
             }
@@ -51,6 +54,7 @@ std::vector<std::pair<int, std::vector<RelativeIndex>>> SearchServer::search(con
     //достать из списка частот и посчитать релевантность
     std::unordered_map<std::string, std::vector<Entry>> freqDictionaryAnswer;
     for (auto it = countRequest.begin(); it != countRequest.end(); ++it) {
+        if (it == countRequest.end()) break;
         freqDictionaryAnswer.insert(std::pair<std::string, std::vector<Entry>>(it->second, _index.GetWordCount(it->second)));
     }
     std::map<size_t, int> absoluteRelevance;
@@ -61,7 +65,7 @@ std::vector<std::pair<int, std::vector<RelativeIndex>>> SearchServer::search(con
             if (absoluteRelevance[entry.docId] > max) max = absoluteRelevance[entry.docId];
         }
     }
-    sortVector(resultRelative);
+    //sortVector(resultRelative);
 
     return resultRelative;
 }
