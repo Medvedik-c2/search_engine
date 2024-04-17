@@ -22,16 +22,13 @@ class InvertedIndex
     std::vector<std::string> docs;
     std::unordered_map<std::string, std::vector<Entry>> freqDictionary;
 
-    void processFreqDictionary (std::string& doc, size_t& id, std::mutex &mtx);
+    void processFreqDictionary (std::string doc, size_t id, std::mutex &mtx);
 public:
     InvertedIndex() = default;
     ~InvertedIndex() = default;
     void updateDocumentBase (const std::vector<std::string>& _docs);
     void setFreqDictionary ();
-    void showFreqDictionary ();
     std::vector<Entry> GetWordCount(const std::string& request);
-
-
 };
 
 #endif // INVERTEDINDEX_H

@@ -15,6 +15,7 @@ class SearchServer
 {
     std::vector<std::vector<std::pair<int,float>>> answers;
     std::vector<int> sortedQueryNumbers;
+
     int max = 0;
 public:
     SearchServer(InvertedIndex& idx);
@@ -23,6 +24,8 @@ public:
     std::vector<std::vector<std::pair<int, float> > > getAnswers() const;
 
     void sortVector(std::vector<std::pair<int, std::vector<RelativeIndex> > > &resultRelative);
+    std::vector<int> getSortedQueryNumbers() const;
+
 private:
     InvertedIndex _index;
 

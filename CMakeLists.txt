@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(MY_INCLUDE_DIR
     ${CMAKE_SOURCE_DIR}/include
 )
+set(MY_SOURCE_DIR
+    ${CMAKE_SOURCE_DIR}/resources
+)
 set(gtest_disable_pthreads on)
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 

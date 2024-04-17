@@ -6,13 +6,18 @@
 
 std::vector<std::size_t> ConverterJSON::Doc () {return doc;}
 
+void ConverterJSON::setNumberRequests(const std::vector<int> &newSortedNumberRequests)
+{
+    numbersRequests = newSortedNumberRequests;
+}
+
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
     std::vector<std::string> list;
     try {
         nlohmann::json config;
         std::ifstream inconfig;
-        inconfig.open("config.json");
+        inconfig.open("resources/config.json");
         if (!inconfig.is_open()) {
             throw std::runtime_error("Failed to open config.json");
         }
@@ -42,7 +47,7 @@ int ConverterJSON::GetResponsesLimit()
     int responsesLimit = 0;
     try {
         nlohmann::json config;
-        std::ifstream inconfig("config.json");
+        std::ifstream inconfig("resources/config.json");
         if (!inconfig.is_open()) {
             throw std::runtime_error("Failed to open config.json");
         }
@@ -63,18 +68,18 @@ std::vector<std::string> ConverterJSON::GetRequests()
 {
     std::vector<std::string> requests;
     try {
-        std::ifstream inRequests("requests.json");
-
+        std::ifstream inRequests("resources/requests.json");
         if (!inRequests.is_open()) {
             throw std::runtime_error("Failed to open request.json");
         }
         nlohmann::json r;
         inRequests >> r;
+        inRequests.close();
+
         for (auto& request : r["requests"]) {
             requests.push_back(request);
-            std::cout << request << std::endl;
         }
-        inRequests.close();
+
     } catch (const std::exception& e){
         std::cerr << "Error: " << e.what() << std::endl;
     }
@@ -85,13 +90,10 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
 {
     nlohmann::json jsonAnswer;
     jsonAnswer["answers"] = nlohmann::json::array();
-
-    int i = 0; //нумерация должна приходить извне, привязанная к запросам
-    //псамый релевантный отметить
-    //добавить тесты и разобраться что не работает
+    int i = 0;
     for (auto& answer : answers) {
         nlohmann::json request;
-        std::string requestKey = "request_00" + std::to_string(i + 1);
+        std::string requestKey = "request_00" + std::to_string(numbersRequests[i]);
         request[requestKey] = nlohmann::json::array();
         if (answer.empty()) request["result"] = "false";
         else {
@@ -106,7 +108,7 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
         i++;
     }
     try {
-        std::ofstream outAnswer("answer.json");
+        std::ofstream outAnswer("resources/answer.json");
         if (!outAnswer.is_open()) {
             throw std::runtime_error("Failed to open answers.json for writing");
         }

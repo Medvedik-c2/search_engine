@@ -7,7 +7,11 @@
 std::vector<std::vector<std::pair<int, float>>> SearchServer::getAnswers() const
 {
     return answers;
-    //нужна еще сортировка по релевантности без потери нумерации запросов
+}
+
+std::vector<int> SearchServer::getSortedQueryNumbers() const
+{
+    return sortedQueryNumbers;
 }
 
 SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){}
@@ -57,7 +61,7 @@ std::vector<std::pair<int, std::vector<RelativeIndex>>> SearchServer::search(con
             if (absoluteRelevance[entry.docId] > max) max = absoluteRelevance[entry.docId];
         }
     }
-
+    sortVector(resultRelative);
 
     return resultRelative;
 }

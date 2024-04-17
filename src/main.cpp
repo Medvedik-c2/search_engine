@@ -23,7 +23,7 @@ int main(int argc, char**argv)
     std::vector<std::string> requests = convert.GetRequests();
 
     std::vector<std::vector<std::pair<int, float>>> answers = ss.getAnswers();
-
+    convert.setNumberRequests(ss.getSortedQueryNumbers());
     convert.putAnswers(answers);
 
     ::testing::InitGoogleTest(&argc, argv);

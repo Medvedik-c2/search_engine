@@ -7,7 +7,7 @@
 
 
 
-void InvertedIndex::processFreqDictionary(std::string &doc, size_t& id, std::mutex& mtx)
+void InvertedIndex::processFreqDictionary(std::string doc, size_t id, std::mutex& mtx)
 {
     std::istringstream iss(doc);
     std::string word;
@@ -41,7 +41,11 @@ void InvertedIndex::updateDocumentBase(const std::vector<std::string>& inputDocs
 {
     if (inputDocs.empty()) std::cerr << "Document is empty!" << std::endl;
     else {
-        docs = inputDocs;
+        docs.clear();
+        docs.reserve(inputDocs.size());
+        for(const auto& doc : inputDocs) {
+            docs.push_back(doc);
+        }
     }
     setFreqDictionary();
 }
@@ -52,22 +56,11 @@ void InvertedIndex::setFreqDictionary()
     std::mutex mtx;
     size_t id = 0;
     for(auto& doc : docs) {        
-        threads.emplace_back(&InvertedIndex::processFreqDictionary,this, std::ref(doc), std::ref(id), std::ref(mtx));
+        threads.emplace_back(&InvertedIndex::processFreqDictionary,this, doc, id, std::ref(mtx));
         id++;
     }
     for (auto& thread : threads) {
         thread.join();
-    }
-}
-
-void InvertedIndex::showFreqDictionary()
-{
-    for(auto& word : freqDictionary){
-        std::cout << word.first << " = ";
-        for (auto& file : word.second) {
-            std::cout << file.docId << " : " << file.count << "   ";
-        }
-        std::cout << std::endl;
     }
 }
 

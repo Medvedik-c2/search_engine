@@ -7,6 +7,7 @@
 class ConverterJSON {
 
     std::vector<std::size_t> doc;
+    std::vector<int> numbersRequests;
 public:
     ConverterJSON() = default;
 
@@ -21,6 +22,7 @@ public:
     std::vector<std::vector<std::pair<int, float>>> processAnswers();
 
     std::vector<std::size_t> Doc();
+    void setNumberRequests(const std::vector<int> &newSortedNumberRequests);
 };
 
 
