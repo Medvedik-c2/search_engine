@@ -6,11 +6,6 @@
 
 std::vector<std::size_t> ConverterJSON::Doc () {return doc;}
 
-void ConverterJSON::setNumberRequests(const std::vector<int> &newSortedNumberRequests)
-{
-    numbersRequests = newSortedNumberRequests;
-}
-
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
     std::vector<std::string> list;
@@ -89,22 +84,26 @@ std::vector<std::string> ConverterJSON::GetRequests()
 void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> answers)
 {
     nlohmann::json jsonAnswer;
-    jsonAnswer["answers"] = nlohmann::json::array();
+    jsonAnswer["answers"] = nlohmann::json::object();
     int i = 0;
     for (auto& answer : answers) {
+        std::string requestKey = "request_" + std::to_string(i + 1);
         nlohmann::json request;
-        std::string requestKey = "request_00" + std::to_string(numbersRequests[i]);
-        request[requestKey] = nlohmann::json::array();
-        if (answer.empty()) request["result"] = "false";
-        else {
+        if (answer.size() > 1) {
             request["result"] = "true";
             nlohmann::json relevance;
-            for(const auto& pair : answer) {
-                relevance.push_back({{"docId", pair.first}, {"rank", pair.second}});
+            for (const auto& pair : answer) {
+                relevance.push_back({{"docid", pair.first}, {"rank", pair.second}});
             }
-            request[requestKey].push_back(relevance);
+            request["relevance"] = relevance;
+        } else if (!answer.empty()) {
+            request["result"] = "true";
+            request["docid"] = answer[0].first;
+            request["rank"] = answer[0].second;
+        } else {
+            request["result"] = "false";
         }
-        jsonAnswer["answers"].push_back(request);
+        jsonAnswer["answers"][requestKey] = request;
         i++;
     }
     try {
@@ -112,12 +111,14 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
         if (!outAnswer.is_open()) {
             throw std::runtime_error("Failed to open answers.json for writing");
         }
-        outAnswer << std::setw(4) << jsonAnswer << std::endl;
+        outAnswer << std::setw(4) << jsonAnswer << std::endl; // Установка отступов
         outAnswer.close();
     } catch (const std::exception& e){
         std::cerr << "Error: " << e.what() << std::endl;
     }
 }
+
+
 
 std::vector<std::vector<std::pair<int, float>>> ConverterJSON::processAnswers(){
     std::vector<std::vector<std::pair<int, float>>> ans;
