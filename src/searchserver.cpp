@@ -1,74 +1,99 @@
 #include "searchserver.h"
 #include "converterjson.h"
 #include <sstream>
-#include <map>
+//#include <unordered_map>
 //#include <algorithm>
-//#include <iostream>
+#include <iostream>
+#include <map>
+#include <cmath>
 
 std::vector<std::vector<std::pair<int, float>>> SearchServer::getAnswers() const
 {
     return answers;
 }
 
+void SearchServer::setAnswers(const std::vector<std::vector<RelativeIndex>> &results)
+{
+    std::vector<std::vector<std::pair<int, float>>> newAnswers;
+    for(auto& result : results){
+        std::vector<std::pair<int, float>> newAnswer;
+        for(auto& it : result){
+            int id = it.docId;
+            float rank = it.rank;
+            newAnswer.push_back(std::make_pair(id, rank));
+        }
+        newAnswers.push_back(newAnswer);
+    }
+    showVVP(newAnswers);
+    answers = newAnswers;
+}
+
 SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){}
 
-std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queriesInput)
+
+
+std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> queriesInput)
 {
+    showVector(queriesInput);
     ConverterJSON convert;
     std::vector<std::vector<RelativeIndex>> resultRelative;
-    _index.updateDocumentBase(queriesInput);
+    int maxResponces = convert.GetResponsesLimit();
+    // РАЗОБРАТЬСЯ С МАХ КАК ЕГО ПЕРЕДАТЬ ИЛИ СОЗДАТЬ НЕ ЧИТАЯ ВТОРОЙ РАЗ ВСЕ ФАЙЛЫ!!!!
+    std::vector<int> max;
+    showVector(max);
 
-    std::vector<std::string> requests = convert.GetRequests();
-    //создание списка уникальных слов в запросах и сортировка
-    //по возрастанию упоминаний
     std::multimap<int, std::string> countRequest;
-    for (auto& req : requests) {
-        std::vector<std::string> tokenizeRequest = tokenizeQuery(req);
-        std::vector<RelativeIndex> relativeIndex;
-        for (auto &token : tokenizeRequest) {
-            std::vector<std::pair<int, float>> answer;
+
+    //работа с каждым запросом
+    for (const auto &req : queriesInput) {
+        std::vector<RelativeIndex> relativeIndex;        
+
+        //работа с каждым словом запроса
+        for (auto &token : tokenizeQuery(req)) {
             int count = 0;
             bool unique = true;
             for (auto& it : _index.GetWordCount(token)){
                 count += it.count;
-                relativeIndex.push_back({it.docId,(float)it.count});
-                answer.push_back(std::pair<int, float>(static_cast<int>(it.docId), (float)it.count));
+                size_t id = it.docId;
+                auto iter = std::find_if(relativeIndex.begin(), relativeIndex.end(), [id](const RelativeIndex& ri) {
+                    return ri.docId == id;
+                });
+                if (iter != relativeIndex.end()) {
+                    iter->rank += it.count;
+                } else {
+                    relativeIndex.push_back({it.docId,(float)it.count});
+                }
             }
-            resultRelative.push_back(relativeIndex);
-            answers.push_back(answer);
-
             for (const auto& pair : countRequest) {
                 if (pair.second == token) unique = false;
             }
             if (unique)
                 countRequest.insert(std::pair<int, std::string>(count, token));
         }
-    }
-    //достать из списка частот и посчитать релевантность
-    std::unordered_map<std::string, std::vector<Entry>> freqDictionaryAnswer;
-    for (auto it = countRequest.begin(); it != countRequest.end(); ++it) {
-        if (it == countRequest.end()) break;
-        freqDictionaryAnswer.insert(std::pair<std::string, std::vector<Entry>>(it->second, _index.GetWordCount(it->second)));
-    }
-    std::map<size_t, int> absoluteRelevance;
+        //из абсолютной делаем относительную релевантность
+        // Округляем до 3 знаков после запятой
+        for(auto& it : relativeIndex){
+            int id = it.docId;
+            it.rank = std::round((it.rank / max[id]) * 1000) / 1000.0;
+        }
 
-    for(auto& word : freqDictionaryAnswer){
-        for(auto& entry : word.second){
-            absoluteRelevance[entry.docId] += entry.count;
-            if (absoluteRelevance[entry.docId] > max) max = absoluteRelevance[entry.docId];
+        //сортируем файлы по релевантности
+        std::sort(relativeIndex.begin(), relativeIndex.end(), [](const RelativeIndex& a, const RelativeIndex& b) {
+            return a.rank > b.rank;
+        });
+        //отсекаем все лишнее
+
+        while(relativeIndex.size() > maxResponces){
+            relativeIndex.pop_back();
         }
-    }
-    for(auto& request : answers){
-        for(auto& doc : request){
-            doc.second = doc.second / max;
-        }
-    }
-    for(auto& request : resultRelative){
-        for(auto& doc : request){
-            doc.rank = doc.rank / max;
-        }
+
+        resultRelative.push_back(relativeIndex);
+
     }
 
+    showVV(resultRelative);
+
+    setAnswers(resultRelative);
     return resultRelative;
 }
 
@@ -81,4 +106,43 @@ std::vector<std::string> SearchServer::tokenizeQuery(std::string request) {
         result.push_back(word);
     }
     return result;
+}
+void SearchServer::showVVP (auto vv) const {
+    std::cout << "ANSWERS: \n\n";
+    for(auto& v: vv){
+        for(auto& it : v){
+            std::cout << it.first << " ::: " << it.second << std::endl;
+        }
+        std::cout << "======" << std::endl;
+    }
+}
+
+void SearchServer::showVector(auto vec) const {
+    for(auto& it : vec){
+        std::cout << it << std::endl;
+    }
+}
+
+void SearchServer::showMultimap(auto mm) const {
+    for(auto& it : mm){
+        std::cout << it.first << " - " << it.second << std::endl;
+    }
+}
+void SearchServer::showMap(auto m) const {
+    for(auto& it : m){
+        std::cout << it.first << " \t ";
+        for(auto& t : it.second) {
+            std::cout << t.docId << ": " << t.count << "\t";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void SearchServer::showVV (auto vv) const {
+    for(auto& v: vv){
+        for(auto& it : v){
+            std::cout << it.docId << " ::: " << it.rank << std::endl;
+        }
+        std::cout << "======" << std::endl;
+    }
 }

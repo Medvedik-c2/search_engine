@@ -37,6 +37,7 @@ void InvertedIndex::processFreqDictionary(std::string doc, size_t id, std::mutex
     mtx.unlock();
 }
 
+
 void InvertedIndex::updateDocumentBase(const std::vector<std::string>& inputDocs)
 {
     if (inputDocs.empty()) std::cerr << "Document is empty!" << std::endl;
@@ -45,9 +46,12 @@ void InvertedIndex::updateDocumentBase(const std::vector<std::string>& inputDocs
         docs.reserve(inputDocs.size());
         for(const auto& doc : inputDocs) {
             docs.push_back(doc);
+            std::stringstream ss(doc);
+            std::string word;
         }
     }
     setFreqDictionary();
+    //showDictionary();
 }
 
 void InvertedIndex::setFreqDictionary()
@@ -74,4 +78,23 @@ std::vector<Entry> InvertedIndex::GetWordCount(const std::string& request)
         }
     }
     return result;
+}
+
+
+// for debug
+void InvertedIndex::showDictionary()
+{
+    for(auto& s : freqDictionary){
+        std::cout << s.first << " \t ";
+        for(auto& e : s.second){
+            std::cout << e.docId << ":" << e.count << "  ";
+        }
+        std::cout << std::endl;
+    }
+}
+void InvertedIndex::showVector(auto vec) const {
+    for(auto& it : vec){
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
 }

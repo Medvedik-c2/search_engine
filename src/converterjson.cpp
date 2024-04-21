@@ -4,7 +4,11 @@
 #include <iostream>
 #include <stdexcept>
 
-std::vector<std::size_t> ConverterJSON::Doc () {return doc;}
+
+std::vector<int> ConverterJSON::getCountWords() const
+{
+    return countWords;
+}
 
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
@@ -24,16 +28,26 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
                 std::cerr << "[FAIL] " << pathfile << " is missing" << std::endl;
                 continue;
             }
-            doc.push_back(n++);
             std::string line;
             while (std::getline(infile, line)) {
                 list.push_back(line);
             }
         }
         inconfig.close();
+        //заполняем количество слов в каждом файле
+        int sumWords = 0;
+        for(auto it : list){
+            std::stringstream ss(it);
+            std::string word;
+            while(ss >> word){
+                sumWords++;
+            }
+            countWords.push_back(sumWords);
+        }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
+
     return list;
 }
 
@@ -51,7 +65,7 @@ int ConverterJSON::GetResponsesLimit()
             throw std::runtime_error("max_responses not found in config file");
         }
         responsesLimit = config["config"]["max_responses"];
-        std::cout << "limit: " << responsesLimit << std::endl;
+        //std::cout << "limit: " << responsesLimit << std::endl;
         inconfig.close();
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
@@ -93,13 +107,22 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
             request["result"] = "true";
             nlohmann::json relevance;
             for (const auto& pair : answer) {
-                relevance.push_back({{"docid", pair.first}, {"rank", pair.second}});
+                //округляем до 3х знаков
+                std::stringstream ss;
+                ss << std::fixed << std::setprecision(3) << pair.second;
+                std::string rank = ss.str();
+
+                relevance.push_back("docID: " + std::to_string(pair.first) + ", rank: " + rank);
             }
             request["relevance"] = relevance;
         } else if (!answer.empty()) {
             request["result"] = "true";
             request["docid"] = answer[0].first;
-            request["rank"] = answer[0].second;
+            //округляем до 3х знаков
+            std::stringstream ss;
+            ss << std::fixed << std::setprecision(3) << answer[0].second;
+            std::string rank = ss.str();
+            request["rank"] = rank;
         } else {
             request["result"] = "false";
         }
@@ -117,10 +140,3 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
         std::cerr << "Error: " << e.what() << std::endl;
     }
 }
-
-
-
-std::vector<std::vector<std::pair<int, float>>> ConverterJSON::processAnswers(){
-    std::vector<std::vector<std::pair<int, float>>> ans;
-    return ans;
-};

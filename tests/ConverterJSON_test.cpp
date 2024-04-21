@@ -1,26 +1,39 @@
 #include "converterjson.h"
 #include "gtest/gtest.h"
 
-TEST(ConverterJSON, readConfig) {
 
+TEST(ConverterJSONTest, GetTextDocuments)
+{
+    ConverterJSON converter;
+
+    // Проверка, что метод возвращает непустой вектор строк
+    EXPECT_FALSE(converter.GetTextDocuments().empty());
 }
 
-TEST(ConverterJSON, readRequests) {
+TEST(ConverterJSONTest, GetResponsesLimit)
+{
+    ConverterJSON converter;
 
+    // Проверка, что метод возвращает ненулевое значение
+    EXPECT_NE(converter.GetResponsesLimit(), 0);
 }
 
-TEST(ConverterJSON, getResponsesLimit) {
+TEST(ConverterJSONTest, GetRequests)
+{
+    ConverterJSON converter;
 
+    // Проверка, что метод возвращает непустой вектор строк
+    EXPECT_FALSE(converter.GetRequests().empty());
 }
 
-TEST(ConverterJSON, getRequests) {
+TEST(ConverterJSONTest, putAnswers)
+{
+    ConverterJSON converter;
 
+    // Создание и передача в метод пустого вектора ответов
+    std::vector<std::vector<std::pair<int, float>>> answers;
+    converter.putAnswers(answers);
+
+    // TODO: добавить проверку созданного файла ответов
 }
 
-TEST(ConverterJSON, getFiles) {
-
-}
-
-TEST(ConverterJSON, putAnswers) {
-
-}
