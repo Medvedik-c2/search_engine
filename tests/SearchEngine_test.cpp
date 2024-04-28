@@ -34,7 +34,7 @@ TEST(TestCaseSearchServer, TestTop5) {
         "rome is the capital of italy",
         "madrid is the capital of spain",
         "lisboa is the capital of portugal",
-        "bern is the capital of switzerland",
+        "bernl is the capital of switzerland",
         "moscow is the capital of russia",
         "kiev is the capital of ukraine",
         "minsk is the capital of belarus",
