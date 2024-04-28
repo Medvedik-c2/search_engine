@@ -2,6 +2,7 @@
 #define SEARCHSERVER_H
 
 #include "invertedindex.h"
+#include "converterjson.h"
 
 struct RelativeIndex{
     size_t docId;
@@ -29,8 +30,12 @@ public:
     void setAnswers(const std::vector<std::vector<RelativeIndex>> &results);
 
     void showVVP(auto vv) const;
+    void calculateRelevance(std::vector<RelativeIndex> &relativeIndex);
+    void showRelativeVector(auto req, std::vector<RelativeIndex> &relativeIndex);
 private:
     InvertedIndex _index;
+    ConverterJSON convert;
+    std::vector<int> sumWordsInFiles;
 
 };
 

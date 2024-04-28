@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <mutex>
 
 struct Entry
@@ -20,7 +20,8 @@ class InvertedIndex
 {
 
     std::vector<std::string> docs;
-    std::map<std::string, std::vector<Entry>> freqDictionary;
+    std::vector<int> countWords;
+    std::unordered_map<std::string, std::vector<Entry>> freqDictionary;
 public:
     InvertedIndex() = default;
     ~InvertedIndex() = default;
@@ -30,6 +31,7 @@ public:
     void processFreqDictionary (std::string doc, size_t id, std::mutex &mtx);
     void showDictionary();
     void showVector(auto vec) const;
+    std::vector<int> getCountWords() const;
 };
 
 #endif // INVERTEDINDEX_H

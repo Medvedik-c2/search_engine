@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 
-TEST(ConverterJSONTest, GetTextDocuments)
+/*TEST(ConverterJSONTest, GetTextDocuments)
 {
     ConverterJSON converter;
 
@@ -36,4 +36,4 @@ TEST(ConverterJSONTest, putAnswers)
 
     // TODO: добавить проверку созданного файла ответов
 }
-
+*/

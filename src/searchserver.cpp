@@ -2,7 +2,7 @@
 #include "converterjson.h"
 #include <sstream>
 //#include <unordered_map>
-//#include <algorithm>
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <cmath>
@@ -28,30 +28,28 @@ void SearchServer::setAnswers(const std::vector<std::vector<RelativeIndex>> &res
     answers = newAnswers;
 }
 
-SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){}
+SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){
+    _index.updateDocumentBase(convert.GetTextDocuments());
+}
 
 
 
 std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> queriesInput)
 {
     showVector(queriesInput);
-    ConverterJSON convert;
     std::vector<std::vector<RelativeIndex>> resultRelative;
-    int maxResponces = convert.GetResponsesLimit();
-    // РАЗОБРАТЬСЯ С МАХ КАК ЕГО ПЕРЕДАТЬ ИЛИ СОЗДАТЬ НЕ ЧИТАЯ ВТОРОЙ РАЗ ВСЕ ФАЙЛЫ!!!!
-    std::vector<int> max;
-    showVector(max);
 
+    // РАЗОБРАТЬСЯ C РЕЛЕВАНТНОСТЬЮ ПРИМЕР МИЛК ВОТЕР
     std::multimap<int, std::string> countRequest;
 
     //работа с каждым запросом
     for (const auto &req : queriesInput) {
         std::vector<RelativeIndex> relativeIndex;        
-
         //работа с каждым словом запроса
         for (auto &token : tokenizeQuery(req)) {
             int count = 0;
             bool unique = true;
+            //работаем с каждым файлом в котором есть упоминания токена
             for (auto& it : _index.GetWordCount(token)){
                 count += it.count;
                 size_t id = it.docId;
@@ -62,27 +60,22 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
                     iter->rank += it.count;
                 } else {
                     relativeIndex.push_back({it.docId,(float)it.count});
-                }
+                }                
             }
+            std::cout << token << std::endl;
+            showRelativeVector(req ,relativeIndex);
             for (const auto& pair : countRequest) {
                 if (pair.second == token) unique = false;
             }
             if (unique)
                 countRequest.insert(std::pair<int, std::string>(count, token));
         }
-        //из абсолютной делаем относительную релевантность
-        // Округляем до 3 знаков после запятой
-        for(auto& it : relativeIndex){
-            int id = it.docId;
-            it.rank = std::round((it.rank / max[id]) * 1000) / 1000.0;
-        }
 
-        //сортируем файлы по релевантности
-        std::sort(relativeIndex.begin(), relativeIndex.end(), [](const RelativeIndex& a, const RelativeIndex& b) {
-            return a.rank > b.rank;
-        });
+        calculateRelevance(relativeIndex);
+
+
         //отсекаем все лишнее
-
+        int maxResponces = convert.GetResponsesLimit();
         while(relativeIndex.size() > maxResponces){
             relativeIndex.pop_back();
         }
@@ -94,9 +87,36 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     showVV(resultRelative);
 
     setAnswers(resultRelative);
+    _index.showDictionary();
     return resultRelative;
 }
+void SearchServer::showRelativeVector(auto req, std::vector<RelativeIndex> &relativeIndex){
+    //std::cout << req;
+    for(auto& it : relativeIndex){
+        std::cout << "  "<< it.docId << ":" << it.rank;
+    }
+    std::cout << "\n";
+}
 
+void SearchServer::calculateRelevance(std::vector<RelativeIndex> &relativeIndex){
+    //поиск максимума для запроса
+    max = 0;
+    for(auto& it : relativeIndex){
+        if(it.rank > max) max = it.rank;
+    }
+    //из абсолютной делаем относительную релевантность
+    // Округляем до 3 знаков после запятой
+    for(auto& it : relativeIndex){
+        int id = it.docId;
+        std::cout << "!!! id:" << id << " max: " << max << " rank absolute: " << it.rank << std::endl;
+        it.rank = std::round((it.rank / max) * 1000) / 1000;
+    }
+
+    //сортируем файлы по релевантности
+    std::sort(relativeIndex.begin(), relativeIndex.end(), [](const RelativeIndex& a, const RelativeIndex& b) {
+        return a.rank > b.rank;
+    });
+}
 //разбить строку запроса на слова
 std::vector<std::string> SearchServer::tokenizeQuery(std::string request) {
     std::vector<std::string> result;

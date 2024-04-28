@@ -34,16 +34,7 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
             }
         }
         inconfig.close();
-        //заполняем количество слов в каждом файле
-        int sumWords = 0;
-        for(auto it : list){
-            std::stringstream ss(it);
-            std::string word;
-            while(ss >> word){
-                sumWords++;
-            }
-            countWords.push_back(sumWords);
-        }
+
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
