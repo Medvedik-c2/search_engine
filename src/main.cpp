@@ -7,6 +7,7 @@ int main()
 {
     ConverterJSON convert;
     InvertedIndex ii;
+    ii.updateDocumentBase(convert.GetTextDocuments());
     SearchServer ss(ii);
     ss.search(convert.GetRequests());
 

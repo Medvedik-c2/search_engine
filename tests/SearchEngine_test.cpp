@@ -3,7 +3,7 @@
 
 using namespace std;
 
-/*TEST(TestCaseSearchServer, TestSimple) {
+TEST(TestCaseSearchServer, TestSimple) {
     const vector<string> docs = {
         "milk milk milk milk water water water",
         "milk water water",
@@ -25,7 +25,7 @@ using namespace std;
     SearchServer srv(idx);
     vector<vector<RelativeIndex>> result = srv.search(request);
     ASSERT_EQ(result, expected);
-}*/
+}
 TEST(TestCaseSearchServer, TestTop5) {
     const vector<string> docs = {
         "london is the capital of great britain",
