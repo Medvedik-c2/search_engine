@@ -1,8 +1,8 @@
 add_executable(search_engine
     main.cpp
-    converterjson.cpp
-    invertedindex.cpp
-    searchserver.cpp
+    ConverterJSON.cpp
+    InvertedIndex.cpp
+    SearchServer.cpp
 )
 
 
