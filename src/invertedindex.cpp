@@ -1,4 +1,4 @@
-#include "invertedindex.h"
+#include "InvertedIndex.h"
 #include <iostream>
 #include <sstream>
 #include <thread>

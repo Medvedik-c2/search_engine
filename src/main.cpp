@@ -1,6 +1,6 @@
-#include "invertedindex.h"
-#include "converterjson.h"
-#include "searchserver.h"
+#include "InvertedIndex.h"
+#include "ConverterJSON.h"
+#include "SearchServer.h"
 
 
 int main()
