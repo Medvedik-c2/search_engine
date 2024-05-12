@@ -15,7 +15,8 @@ struct RelativeIndex{
 class SearchServer
 {
     std::vector<std::vector<std::pair<int,float>>> answers;
-
+    InvertedIndex _index;
+    ConverterJSON convert;
     int max = 0;
 public:
     SearchServer(InvertedIndex& idx);
@@ -23,20 +24,10 @@ public:
     std::vector<std::string> tokenizeQuery(std::string request);
     std::vector<std::vector<std::pair<int, float> > > getAnswers() const;
 
-    void showVector(auto vec) const;
-    void showMultimap(auto mm) const;
-    void showVV(auto vv) const;
-    void showMap(auto m) const;
     void setAnswers(const std::vector<std::vector<RelativeIndex>> &results);
 
-    void showVVP(auto vv) const;
     void calculateRelevance(std::vector<RelativeIndex> &relativeIndex);
     void showRelativeVector(auto req, std::vector<RelativeIndex> &relativeIndex);
-private:
-    InvertedIndex _index;
-    ConverterJSON convert;
-    std::vector<int> sumWordsInFiles;
-
 };
 
 

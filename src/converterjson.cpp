@@ -5,11 +5,6 @@
 #include <stdexcept>
 
 
-std::vector<int> ConverterJSON::getCountWords() const
-{
-    return countWords;
-}
-
 std::vector<std::string> ConverterJSON::GetTextDocuments()
 {
     std::vector<std::string> list;
@@ -21,8 +16,18 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
             throw std::runtime_error("Failed to open config.json");
         }
         inconfig >> config;
-        size_t n = 0;
-        for (auto& pathfile : config["files"]) {
+        inconfig.close();
+
+        // Проверка наличия поля "files" и его типа
+        if (!config.contains("files") || !config["files"].is_array()) {
+            throw std::runtime_error("Missing or invalid 'files' field in config.json");
+        }
+
+        for (const auto& pathfile : config["files"]) {
+            // Проверка корректности заполнения поля "files"
+            if (!pathfile.is_string()) {
+                throw std::runtime_error("Invalid 'files' entry in config.json");
+            }
             std::ifstream infile(pathfile);
             if (!infile.is_open()) {
                 std::cerr << "[FAIL] " << pathfile << " is missing" << std::endl;
@@ -33,7 +38,6 @@ std::vector<std::string> ConverterJSON::GetTextDocuments()
                 list.push_back(line);
             }
         }
-        inconfig.close();
 
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
@@ -52,12 +56,15 @@ int ConverterJSON::GetResponsesLimit()
             throw std::runtime_error("Failed to open config.json");
         }
         inconfig >> config;
+        inconfig.close();
+
         if (config["config"].find("max_responses") == config["config"].end()) {
             throw std::runtime_error("max_responses not found in config file");
         }
+        if (config["config"]["max_responses"] < 1 || !config["config"]["max_responses"].is_number()) {
+            throw std::runtime_error("incorrect 'max_responses' in config file");
+        }
         responsesLimit = config["config"]["max_responses"];
-        //std::cout << "limit: " << responsesLimit << std::endl;
-        inconfig.close();
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
@@ -75,8 +82,17 @@ std::vector<std::string> ConverterJSON::GetRequests()
         nlohmann::json r;
         inRequests >> r;
         inRequests.close();
+        // Проверяем наличие поля "requests" в файле
+        if (!r.contains("requests") || !r["requests"].is_array()) {
+            throw std::runtime_error("Missing or invalid 'requests' field in requests.json");
+        }
+
 
         for (auto& request : r["requests"]) {
+            // Проверяем корректность заполнения поля "requests"
+            if (!request.is_string()) {
+                throw std::runtime_error("Invalid 'requests' entry in requests.json");
+            }
             requests.push_back(request);
         }
 
@@ -98,7 +114,6 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
             request["result"] = "true";
             nlohmann::json relevance;
             for (const auto& pair : answer) {
-                //округляем до 3х знаков
                 std::stringstream ss;
                 ss << std::fixed << std::setprecision(3) << pair.second;
                 std::string rank = ss.str();
@@ -109,7 +124,6 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
         } else if (!answer.empty()) {
             request["result"] = "true";
             request["docid"] = answer[0].first;
-            //округляем до 3х знаков
             std::stringstream ss;
             ss << std::fixed << std::setprecision(3) << answer[0].second;
             std::string rank = ss.str();

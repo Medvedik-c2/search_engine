@@ -15,7 +15,6 @@ public:
     int GetResponsesLimit();
     std::vector<std::string> GetRequests();
     void putAnswers(std::vector<std::vector<std::pair<int, float>>> answers);
-    std::vector<int> getCountWords() const;
 };
 
 

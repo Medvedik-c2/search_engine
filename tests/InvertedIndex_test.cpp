@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "invertedindex.h"
-/*
+
 using namespace std;
 
 void TestInvertedIndexFunctionality(
@@ -66,40 +66,3 @@ TEST(TestCaseInvertedIndex, TestInvertedIndexMissingWord) {
     TestInvertedIndexFunctionality(docs, requests, expected);
 }
 
-
-TEST(InvertedIndexTest, ProcessFreqDictionary)
-{
-    InvertedIndex index;
-    std::mutex mtx;
-    std::string doc = "hello world hello";
-    size_t id = 1;
-
-    index.processFreqDictionary(doc, id, mtx);
-
-    EXPECT_EQ(index.GetWordCount("hello").size(), 1);
-    EXPECT_EQ(index.GetWordCount("world").size(), 1);
-    EXPECT_EQ(index.GetWordCount("not_in_dict").size(), 0);
-
-    EXPECT_EQ(index.GetWordCount("hello")[0].count, 2);
-    EXPECT_EQ(index.GetWordCount("world")[0].count, 1);
-}
-
-
-TEST(InvertedIndexTest, GetWordCount)
-{
-    InvertedIndex index;
-    std::mutex mtx;
-    std::string doc1 = "hello world hello";
-    std::string doc2 = "world world world";
-    size_t id1 = 1;
-    size_t id2 = 2;
-
-    index.processFreqDictionary(doc1, id1, mtx);
-    index.processFreqDictionary(doc2, id2, mtx);
-
-    EXPECT_EQ(index.GetWordCount("hello")[0].count, 2);
-    EXPECT_EQ(index.GetWordCount("world")[0].count, 1);
-    EXPECT_EQ(index.GetWordCount("not_in_dict").size(), 0);
-}
-
-*/

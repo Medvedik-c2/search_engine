@@ -1,11 +1,9 @@
 #include "searchserver.h"
 #include "converterjson.h"
 #include <sstream>
-//#include <unordered_map>
 #include <algorithm>
-#include <iostream>
+//#include <iostream>
 #include <map>
-#include <cmath>
 
 std::vector<std::vector<std::pair<int, float>>> SearchServer::getAnswers() const
 {
@@ -24,22 +22,15 @@ void SearchServer::setAnswers(const std::vector<std::vector<RelativeIndex>> &res
         }
         newAnswers.push_back(newAnswer);
     }
-    showVVP(newAnswers);
     answers = newAnswers;
 }
 
-SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){
-    _index.updateDocumentBase(convert.GetTextDocuments());
-}
-
-
+SearchServer::SearchServer(InvertedIndex &idx) : _index(idx){}
 
 std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> queriesInput)
 {
-    showVector(queriesInput);
     std::vector<std::vector<RelativeIndex>> resultRelative;
 
-    // РАЗОБРАТЬСЯ C РЕЛЕВАНТНОСТЬЮ ПРИМЕР МИЛК ВОТЕР
     std::multimap<int, std::string> countRequest;
 
     //работа с каждым запросом
@@ -62,8 +53,8 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
                     relativeIndex.push_back({it.docId,(float)it.count});
                 }                
             }
-            std::cout << token << std::endl;
-            showRelativeVector(req ,relativeIndex);
+            //std::cout << token << std::endl;
+            //showRelativeVector(req ,relativeIndex);
             for (const auto& pair : countRequest) {
                 if (pair.second == token) unique = false;
             }
@@ -73,30 +64,18 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
         calculateRelevance(relativeIndex);
 
-
         //отсекаем все лишнее
         int maxResponces = convert.GetResponsesLimit();
         while(relativeIndex.size() > maxResponces){
             relativeIndex.pop_back();
         }
-
         resultRelative.push_back(relativeIndex);
-
     }
-
-    showVV(resultRelative);
-
     setAnswers(resultRelative);
-    _index.showDictionary();
+    //_index.showDictionary();
     return resultRelative;
 }
-void SearchServer::showRelativeVector(auto req, std::vector<RelativeIndex> &relativeIndex){
-    //std::cout << req;
-    for(auto& it : relativeIndex){
-        std::cout << "  "<< it.docId << ":" << it.rank;
-    }
-    std::cout << "\n";
-}
+
 
 void SearchServer::calculateRelevance(std::vector<RelativeIndex> &relativeIndex){
     //поиск максимума для запроса
@@ -105,15 +84,17 @@ void SearchServer::calculateRelevance(std::vector<RelativeIndex> &relativeIndex)
         if(it.rank > max) max = it.rank;
     }
     //из абсолютной делаем относительную релевантность
-    // Округляем до 3 знаков после запятой
     for(auto& it : relativeIndex){
-        int id = it.docId;
-        std::cout << "!!! id:" << id << " max: " << max << " rank absolute: " << it.rank << std::endl;
-        it.rank = std::round((it.rank / max) * 1000) / 1000;
+        //int id = it.docId;
+        //std::cout << "!!! id:" << id << " max: " << max << " rank absolute: " << it.rank << std::endl;
+        it.rank = it.rank / max;
     }
 
     //сортируем файлы по релевантности
     std::sort(relativeIndex.begin(), relativeIndex.end(), [](const RelativeIndex& a, const RelativeIndex& b) {
+        if (a.rank == b.rank) {
+            return a.docId < b.docId;
+        }
         return a.rank > b.rank;
     });
 }
@@ -126,43 +107,4 @@ std::vector<std::string> SearchServer::tokenizeQuery(std::string request) {
         result.push_back(word);
     }
     return result;
-}
-void SearchServer::showVVP (auto vv) const {
-    std::cout << "ANSWERS: \n\n";
-    for(auto& v: vv){
-        for(auto& it : v){
-            std::cout << it.first << " ::: " << it.second << std::endl;
-        }
-        std::cout << "======" << std::endl;
-    }
-}
-
-void SearchServer::showVector(auto vec) const {
-    for(auto& it : vec){
-        std::cout << it << std::endl;
-    }
-}
-
-void SearchServer::showMultimap(auto mm) const {
-    for(auto& it : mm){
-        std::cout << it.first << " - " << it.second << std::endl;
-    }
-}
-void SearchServer::showMap(auto m) const {
-    for(auto& it : m){
-        std::cout << it.first << " \t ";
-        for(auto& t : it.second) {
-            std::cout << t.docId << ": " << t.count << "\t";
-        }
-        std::cout << std::endl;
-    }
-}
-
-void SearchServer::showVV (auto vv) const {
-    for(auto& v: vv){
-        for(auto& it : v){
-            std::cout << it.docId << " ::: " << it.rank << std::endl;
-        }
-        std::cout << "======" << std::endl;
-    }
 }
